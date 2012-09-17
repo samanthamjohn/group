@@ -2,4 +2,23 @@
 # See https://github.com/svenfuchs/rails-i18n/tree/master/rails%2Flocale for starting points.
 
 en:
-  hello: "Hello world"
+  app_name: 'Group'
+  layouts:
+    application:
+      site_name: 'Group'
+      sign_in: 'Sign In'
+      sign_out: 'Sign Out'
+      footer: 'modocache @ 2012'
+  posts:
+    new: 'New Post'
+    none_to_display: 'No posts to display.'
+    edit: 'Edit'
+    delete: 'Delete'
+    index:
+      popular: 'Trending Posts'
+      recent: 'Recent Posts'
+    form:
+      title: 'Title'
+      body: 'Body'
+  user:
+    none_to_display: 'No users to display.'

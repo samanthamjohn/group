@@ -1,0 +1,14 @@
+.page-header
+  %h1= link_to @post.title, @post
+  %small
+    = @post.created_at.in_time_zone('Eastern Time (US & Canada)').strftime("%I:%M %p %m/%d/%y")
+    by
+    = link_to @post.user.email, @post.user
+    - if can?(:update, @post) || can?(:destroy, @post)
+      %br
+    - if can? :update, @post
+      = link_to t('posts.edit'), edit_post_path(@post)
+    - if can? :destroy, @post
+      = link_to t('posts.delete'), @post, method: :delete, data: { confirm: 'Are you sure?' }
+
+= markdown @post.body

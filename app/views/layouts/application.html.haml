@@ -1,0 +1,38 @@
+!!! 5
+
+%html
+  %head
+    %title= t '.site_name'
+    = csrf_meta_tags
+    = stylesheet_link_tag 'application', :media => "all"
+
+  %body
+    .navbar.navbar-fixed-top
+      .navbar-inner
+        .container
+          %a.btn.btn-navbar(data-target=".nav-collapse" data-toggle="collapse")
+            %span.icon-bar
+            %span.icon-bar
+            %span.icon-bar
+          = link_to t('.site_name'), root_path, class: 'brand'
+          .container.nav-collapse
+            %ul.nav
+              %li= link_to t('posts.new'), new_post_path
+            %ul.nav.pull-right
+              - if user_signed_in?
+                %li= link_to current_user.email, current_user
+                %li= link_to t('.sign_out'), destroy_user_session_path, method: :delete
+              - else
+                %li= link_to t('.sign_in'), new_user_session_path
+
+    .container
+      .content
+        .row
+          = bootstrap_flash
+          = yield
+
+    %footer.footer
+      .container
+        %p= t('.footer')
+
+    = javascript_include_tag 'application'
