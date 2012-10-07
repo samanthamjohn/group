@@ -8,7 +8,7 @@ class PostsController < ApplicationController
     @recent_posts = Post.all
     respond_to do |format|
       format.html # index.html.erb
-      format.json { render json: @posts }
+      format.json # index.rabl
     end
   end
 
@@ -17,7 +17,7 @@ class PostsController < ApplicationController
   def show
     respond_to do |format|
       format.html # show.html.erb
-      format.json { render json: @post }
+      format.json # show.rabl
     end
   end
 

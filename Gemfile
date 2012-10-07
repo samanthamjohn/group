@@ -9,6 +9,8 @@ gem 'sqlite3'
 gem 'devise'
 gem 'omniauth-google-apps'
 gem 'cancan'
+gem 'rabl'
+gem 'yajl-ruby'
 
 gem 'haml'
 gem 'bluecloth'
