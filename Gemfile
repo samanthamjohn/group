@@ -17,6 +17,16 @@ gem 'bluecloth'
 gem 'nokogiri'
 gem 'pry'
 
+group :test do
+  gem 'ZenTest'
+  gem 'autotest-rails'
+  gem 'autotest-fsevent'
+  gem 'rb-fsevent', require: false if RUBY_PLATFORM =~ /darwin/i
+  gem 'rspec-rails'
+  gem 'shoulda-matchers'
+  gem 'factory_girl_rails'
+end
+
 
 # Gems used only for assets and not required
 # in production environments by default.

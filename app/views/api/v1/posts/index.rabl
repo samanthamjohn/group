@@ -1,5 +1,5 @@
 object false
 
 child @posts => :posts do
-  extends 'posts/show'
+  extends 'api/v1/posts/show'
 end

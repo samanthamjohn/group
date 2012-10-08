@@ -6,10 +6,21 @@ Group::Application.routes.draw do
   match '/users/sign_in' => redirect('/auth/google_apps')
   devise_for :users, except: [:new, :create]
 
-  resources :posts
+  namespace 'api' do
+    namespace 'v1' do
+      resources :posts
+    end
+  end
+
   resources :users, only: [:index, :show]
+  resources :posts
 
   match '/android_login', to: 'android_session#android_login'
 
   root :to => 'posts#index'
+
+  # For tests only.
+  devise_scope :user do
+    match '/test/users_sign_in', to: 'sessions#test_create'
+  end
 end
