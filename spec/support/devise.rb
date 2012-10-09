@@ -14,5 +14,6 @@ module DeviseControllerSupport
   def authenticate_client
     @user = FactoryGirl.create :user
     sign_in @user
+    @controller.stub(:current_user).and_return(@user)
   end
 end

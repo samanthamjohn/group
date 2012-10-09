@@ -52,12 +52,35 @@
 
 ```
 // PUT /api/v1/posts/:id.json
+// If no errors occur:
+{
+  "post": {
+    "id": "2a01fdd3-9c3b-47be-b07c-f1c4beaf9e52",
+    "title": "mathematical * 3!",
+    "body": "It's gonna be so flippin' awesome.",
+    "user": {
+      "created_at": "2012-10-08T05:14:19Z",
+      "email": "finn-the-human-7@land-of-ooo.ooo",
+      "id": "90e56250-1098-4591-b5f0-2343c7da0fdd",
+      "updated_at": "2012-10-08T05:14:19Z"
+    },
+    "created_at": "2012-10-08T05:14:19Z",
+    "updated_at": "2012-10-08T05:14:19Z",
+    "permissions": {
+      "update": false,
+      "destroy": false
+    }
+  }
+}
+
 // If any errors occur:
 {
   "errors": {
-    "title": [
-      "is already taken"
-    ]
+    "post": {
+      "title": [
+        "is already taken"
+      ]
+    }
   }
 }
 ```

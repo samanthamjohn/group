@@ -10,8 +10,22 @@ class Api::V1::PostsController < ApplicationController
   # GET /api/v1/posts/:id.json
   def show
     unless @post = Post.find_by_uuid(params[:id])
-      render json: {}, status: 404
+      render json: nil, status: 404
     end
   end
 
+  # PUT /api/v1/posts/:id.json
+  def update
+    render(json: nil, status: 422) and return unless post_params = params['post']
+    post_params.slice!('title', 'body')
+
+    @post = current_user.posts.find_or_initialize_by_uuid(params[:id])
+    status_code = @post.new_record? ? 201 : 200
+
+    if @post.update_attributes(post_params)
+      render 'api/v1/posts/show', status: status_code
+    else
+      render json: { errors: { post: @post.errors } }, status: 422
+    end
+  end
 end

@@ -4,9 +4,10 @@ class Post < ActiveRecord::Base
 
   belongs_to :user
 
-  validates :uuid, presence: true, uniqueness: true, on: :create
+  validates :uuid, presence: true, uniqueness: true
   validates :user, presence: true
-  validates :title, presence: true
+  validates :title, presence: true,
+                    uniqueness: { scope: :user_id }
   validates :body, presence: true
   before_validation :set_uuid, on: :create
 
