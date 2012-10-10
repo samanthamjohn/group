@@ -184,3 +184,34 @@ describe 'PUT /api/v1/posts/:id.json' do
     end
   end
 end
+
+
+describe 'DELETE /api/v1/posts/:id.json' do
+  context 'client is not authenticated' do
+    it 'should return a status code of 401 (unauthorized)' do
+      delete '/api/v1/posts/this-is-our-weird-secret.json'
+      response.status.should == 401
+    end
+  end
+  context 'client is authenticated' do
+    before { authenticate_client }
+    context 'the post with the specified UUID does not exist' do
+      it 'should return a 404 (not found)' do
+        delete 'api/v1/posts/you-really-smell-like-dog-buns.json'
+        response.status.should == 404
+      end
+    end
+    context 'the post with the specified UUID does exist' do
+      before do
+        FactoryGirl.create :post, user: @user, uuid: 'aint-a-crime'
+        delete 'api/v1/posts/aint-a-crime.json'
+      end
+      it 'should return a status code of 200 (ok)' do
+        response.status.should == 200
+      end
+      it 'should delete the post' do
+        Post.find_by_uuid('aint-a-crime').should be_nil
+      end
+    end
+  end
+end

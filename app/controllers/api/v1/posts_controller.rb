@@ -28,4 +28,14 @@ class Api::V1::PostsController < ApplicationController
       render json: { errors: { post: @post.errors } }, status: 422
     end
   end
+
+  # DELETE /api/v1/posts/:id.json
+  def destroy
+    if post = current_user.posts.find_by_uuid(params[:id])
+      post.destroy
+      render json: nil, status: 200
+    else
+      render json: nil, status: 404
+    end
+  end
 end
