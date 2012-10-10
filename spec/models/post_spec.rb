@@ -15,5 +15,6 @@ describe Post do
     post.uuid = nil
     post.save
     post.uuid.should_not be_nil
+    post.uuid.length.should == 36
   end
 end

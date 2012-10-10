@@ -22,12 +22,12 @@ describe Api::V1::PostsController do
         Post.stub(:find_by_uuid).
           with('not-righteous-wrong-teous').
           and_return(post_mock)
-        get :show, id: 'not-righteous-wrong-teous'
+        get :show, id: 'not-righteous-wrong-teous', format: :json
         assigns(:post).should == post_mock
       end
       it 'should return 404 when a post with the specified UUID could not be found' do
         Post.stub(:find_by_uuid).with('ill-never-kidnap-again').and_return nil
-        get :show, id: 'ill-never-kidnap-again'
+        get :show, id: 'ill-never-kidnap-again', format: :json
         response.status.should == 404
       end
     end

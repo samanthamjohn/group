@@ -5,11 +5,13 @@ class User < ActiveRecord::Base
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
 
-  # Setup accessible (or protected) attributes for your model
   attr_accessible :email, :password, :password_confirmation, :remember_me
-  # attr_accessible :title, :body
 
   has_many :posts
+
+  validates :email, presence: true, uniqueness: true
+  validates :uuid, presence: true, uniqueness: true
+  before_validation :set_uuid, on: :create
 
   def self.find_or_create_by_auth_hash(auth_hash)
     begin
@@ -25,4 +27,9 @@ class User < ActiveRecord::Base
     gravatar_id = Digest::MD5.hexdigest(email.downcase)
     "http://gravatar.com/avatar/#{gravatar_id}.png?s=24"
   end
+
+  private
+    def set_uuid
+      self.uuid = SecureRandom.uuid if self.uuid.blank?
+    end
 end
