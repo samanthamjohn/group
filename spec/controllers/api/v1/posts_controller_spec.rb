@@ -166,4 +166,34 @@ describe Api::V1::PostsController do
       end
     end
   end
+
+  describe 'delete' do
+    before { @params = { id: 'what-the-huh' } }
+    context 'with authenticated client' do
+      before { authenticate_client }
+      context 'the post with the specified UUID does not exist' do
+        before do
+          @user.stub_chain(:posts, :find_by_uuid).with(@params[:id])
+          delete :destroy, @params
+        end
+        it 'should return a status code of 404 (not found)' do
+          response.status.should == 404
+        end
+      end
+      context 'the post with the specified UUID exists' do
+        before do
+          mock_post = double('mock post')
+          mock_post.should_receive(:destroy)
+          @user.stub_chain(:posts, :find_by_uuid).
+            with(@params[:id]).
+            and_return(mock_post)
+          delete :destroy, @params
+        end
+        it 'should return a status code of 200 (ok)' do
+          response.status.should == 200
+        end
+        it('should delete the post') {} # tested in before
+      end
+    end
+  end
 end
