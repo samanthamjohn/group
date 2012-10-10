@@ -25,4 +25,33 @@ describe 'api/v1 posts' do
       api_v1_post_path(id: 'post-uuid', format: :json).should == '/api/v1/posts/post-uuid.json'
     end
   end
+
+  describe 'update' do
+    it 'should have an update route' do
+      { put: 'api/v1/posts/post-uuid.json' }.
+        should route_to controller: 'api/v1/posts',
+                        action: 'update',
+                        id: 'post-uuid',
+                        format: 'json'
+    end
+  end
+
+  describe 'destroy' do
+    it 'should have a destroy route' do
+      { delete: 'api/v1/posts/post-uuid.json' }.
+        should route_to controller: 'api/v1/posts',
+                        action: 'destroy',
+                        id: 'post-uuid',
+                        format: 'json'
+    end
+  end
+
+  describe 'unrouted' do
+    it 'should not have a create route' do
+      { post: 'api/v1/posts.json' }.should_not be_routable
+    end
+    it 'should not have an edit route' do
+      { get: 'api/v1/posts/the-post-uuid/edit.json' }.should_not be_routable
+    end
+  end
 end

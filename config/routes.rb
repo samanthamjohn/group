@@ -8,7 +8,7 @@ Group::Application.routes.draw do
 
   namespace 'api' do
     namespace 'v1' do
-      resources :posts
+      resources :posts, except: [:create, :edit]
     end
   end
 
