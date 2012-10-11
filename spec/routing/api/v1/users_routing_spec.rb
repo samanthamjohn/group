@@ -34,7 +34,7 @@ describe 'api/v1/users' do
                                                       format: 'json'
     end
     it 'should have the correct path when using the route helper' do
-      api_v1_me_path(format: :json).should == 'api/v1/users/me.json'
+      api_v1_me_path(format: :json).should == '/api/v1/users/me.json'
     end
   end
 
