@@ -25,4 +25,11 @@ class SessionsController < Devise::SessionsController
     end
     redirect_to :root
   end
+
+  def test_create
+    raise unless Rails.env.test?
+    user = User.find_by_email(params[:email])
+    sign_in :user, user
+    redirect_to :root
+  end
 end
