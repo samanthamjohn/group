@@ -29,4 +29,14 @@ describe Api::V1::UsersController do
       end
     end
   end
+
+  describe 'me' do
+    context 'with authenticated client' do
+      before { authenticate_client }
+      it 'should fetch the currently authenticated user' do
+        get :me, format: :json
+        assigns(:user).should == @user
+      end
+    end
+  end
 end

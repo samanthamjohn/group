@@ -9,7 +9,8 @@ Group::Application.routes.draw do
   namespace 'api' do
     namespace 'v1' do
       resources :posts, except: [:create, :edit]
-      resources :users, only: [:index, :show]
+      resources :users, only: [:index, :show], constraints: { id: /[A-Za-z0-9-]{3,36}/ }
+      match 'users/me', via: :get, to: 'users#me', as: :me
     end
   end
 

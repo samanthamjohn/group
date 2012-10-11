@@ -27,6 +27,17 @@ describe 'api/v1/users' do
     end
   end
 
+  describe 'me' do
+    it 'should have a route' do
+      { get: 'api/v1/users/me.json' }.should route_to controller: 'api/v1/users',
+                                                      action: 'me',
+                                                      format: 'json'
+    end
+    it 'should have the correct path when using the route helper' do
+      api_v1_me_path(format: :json).should == 'api/v1/users/me.json'
+    end
+  end
+
   describe 'unrouted' do
     it 'should not have a create route' do
       { post: 'api/v1/users.json' }.should_not be_routable
